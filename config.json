@@ -1,0 +1,100 @@
+{
+    "architecture_config":{
+        "name": "ANA",
+        "env_list": ["be polite", "object observed", "hand empty1", "hand empty2", "cup empty"],
+        "goal_env": ["relieve thirst"],
+        "conflict_env": ["be polite"]
+    },
+    "module_configs":[
+        {
+            "name": "recognize cup",
+            "threshold": 53,
+            "intensity": 1,
+            "condition_list": ["object observed"],
+            "add_list": ["cup observed"],
+            "delete_list": ["object observed"],
+            "module_type": "belief"
+        },
+        {
+            "name": "recognize bottle",
+            "threshold": 53,
+            "intensity": 1,
+            "condition_list": ["object observed"],
+            "add_list": ["bottle observed"],
+            "delete_list": ["object observed"],
+            "module_type": "belief"
+        },
+        {
+            "name": "pick up cup",
+            "threshold": 60,
+            "intensity": 1,
+            "condition_list": ["cup observed", "hand empty1"],
+            "add_list": ["cup in hand"],
+            "delete_list": ["hand empty1"],
+            "module_type": "action"
+        },
+        {
+            "name": "put cup down",
+            "threshold": 70,
+            "intensity": 1,
+            "condition_list": ["cup in hand"],
+            "add_list": ["hand empty1"],
+            "delete_list": ["cup in hand", "cup at mouth"],
+            "module_type": "action"
+        },
+        {
+            "name": "pick up bottle",
+            "threshold": 57,
+            "intensity": 1,
+            "condition_list": ["bottle observed", "hand empty2"],
+            "add_list": ["bottle in hand"],
+            "delete_list": ["hand empty2"],
+            "module_type": "action"
+        },
+        {
+            "name": "poor liquid",
+            "threshold": 43,
+            "intensity": 1,
+            "condition_list": ["bottle in hand", "cup observed", "cup empty"],
+            "add_list": ["cup filled"],
+            "delete_list": ["cup empty"],
+            "module_type": "action"
+        },
+        {
+            "name": "put bottle down",
+            "threshold": 70,
+            "intensity": 1,
+            "condition_list": ["bottle in hand"],
+            "add_list": ["hand empty2"],
+            "delete_list": ["bottle in hand"],
+            "module_type": "action"
+        },
+        {
+            "name": "bring cup to mouth",
+            "threshold": 70,
+            "intensity": 1,
+            "condition_list": ["cup in hand", "cup filled"],
+            "add_list": ["cup at mouth"],
+            "delete_list": [],
+            "module_type": "action"
+        },
+        {
+            "name": "bring mouth to cup",
+            "threshold": 70,
+            "intensity": 1,
+            "condition_list": ["cup observed", "cup filled"],
+            "add_list": ["cup at mouth"],
+            "delete_list": ["be polite"],
+            "module_type": "action"
+        },
+        {
+            "name": "drink",
+            "threshold": 87,
+            "intensity": 1,
+            "condition_list": ["cup at mouth"],
+            "add_list": ["relieve thirst", "cup empty"],
+            "delete_list": ["cup filled"],
+            "module_type": "action"
+        }
+    ]
+}
